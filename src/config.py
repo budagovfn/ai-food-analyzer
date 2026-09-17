@@ -1,12 +1,21 @@
 from __future__ import annotations
 from pathlib import Path
-from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from dotenv import load_dotenv
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 _ENV_FILE = Path(__file__).resolve().parent.parent / ".env"
 # Absolute path to .env at the project root — independent of the working directory
 # from which the process is launched (PyCharm sometimes starts it from src/).
+
+# IMPORTANT: SettingsConfigDict(env_file=...) below only populates OUR
+# Settings object. The provided ai/ package (which we cannot edit) reads
+# LLM_PROVIDER / ANTHROPIC_API_KEY / GOOGLE_API_KEY etc. directly via
+# os.getenv(...), so it never sees anything unless the values are also
+# pushed into the real process environment — that's what load_dotenv does.
+load_dotenv(dotenv_path=_ENV_FILE)
+
 
 class Settings(BaseSettings):
     # AI and VLM settings (using Gemini)
@@ -18,12 +27,16 @@ class Settings(BaseSettings):
     nutrition_provider: str = "usda"
     usda_api_key: str
 
-    # System and SE-settings (accoridng to .env)
+    # System and SE-settings (according to .env)
     log_level: str = "INFO"
     database_url: str
     nutrition_cache_ttl_seconds: int = 86400
     max_image_size_mb: int = 5
     http_port: int = 8000
+    # Where uploaded meal photos are persisted (see src/api.py) so the
+    # image_path saved in the history table still points at a real file
+    # after the request finishes.
+    image_upload_dir: str = "data/uploads"
 
     model_config = SettingsConfigDict(
         env_file=_ENV_FILE,

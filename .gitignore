@@ -31,3 +31,7 @@ digests/
 # Do not ignore sample data or artefacts — the brief requires these in the repo
 !data/
 !artefacts/
+
+# Runtime meal-photo uploads written by src/api.py (see Settings.image_upload_dir).
+# Distinct from the sample data/ files above, which the brief requires committed.
+data/uploads/
