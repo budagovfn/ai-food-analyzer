@@ -10,14 +10,26 @@ import pytest
 from ai.providers.base import ProviderError
 from ai.schemas import Ingredient, NutritionFacts
 
-from src.ai_service import NutritionService
+from src.ai_service import NutritionService, _identify_ingredients_with_retry
 from src.pipeline import MAX_PARALLEL_LOOKUPS, lookup_all
 
 
 @pytest.fixture(autouse=True)
 def no_real_sleep(monkeypatch):
-    """Skip tenacity's real backoff sleep so failure-path tests stay fast."""
-    monkeypatch.setattr(time, "sleep", lambda seconds: None)
+    """Skip tenacity's real backoff sleep so failure-path tests stay fast.
+
+    Patches each retry-wrapped function's own bound Retrying.sleep
+    directly, instead of the module-level time.sleep / tenacity.nap.sleep.
+    Patching time.sleep globally would also neutralize SlowProvider's
+    simulated 0.3s lookup delay below, making
+    test_lookup_all_runs_concurrently_not_sequentially pass even for a
+    fully sequential (broken) implementation. Patching tenacity.nap.sleep
+    at the module level doesn't work either: RETRY binds the real sleep
+    function as a default argument at decoration time (import time), so
+    a later module-level patch never reaches it.
+    """
+    monkeypatch.setattr(_identify_ingredients_with_retry.retry, "sleep", lambda seconds: None)
+    monkeypatch.setattr(NutritionService._lookup_with_retry.retry, "sleep", lambda seconds: None)
 
 
 def _ingredient(name: str) -> Ingredient:
@@ -88,4 +100,4 @@ def test_lookup_all_empty_ingredient_list(fake_nutrition):
 
     assert facts_by_name == {}
     assert failures == []
-    
+
