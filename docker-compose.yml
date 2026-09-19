@@ -5,26 +5,37 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: dev
       POSTGRES_DB: foodanalyzer
-    ports:
-      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d foodanalyzer"]
       interval: 3s
       timeout: 3s
       retries: 10
+    # No host port is published: the API reaches the database over the compose
+    # network, and binding 5432 would clash with a locally installed Postgres.
 
   api:
     build: .
-    env_file: .env
+    # .env is gitignored, so it may be absent on a fresh clone. Marking it
+    # optional lets `docker compose up` start and fail with a readable
+    # pydantic error naming the missing keys, instead of dying in compose.
+    # Copy .env.example to .env and fill in the API keys before running.
+    env_file:
+      - path: .env
+        required: false
     environment:
       DATABASE_URL: postgresql://postgres:dev@db:5432/foodanalyzer
     ports:
       - "8000:8000"
+    volumes:
+      # Uploaded meal photos must outlive the container: rows in
+      # meal_analyses store image_path and would otherwise dangle.
+      - uploads:/app/data/uploads
     depends_on:
       db:
         condition: service_healthy
 
 volumes:
   pgdata:
+  uploads:
