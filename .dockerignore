@@ -2,6 +2,7 @@ venv/
 .venv/
 env/
 .git/
+.github/
 .idea/
 .vscode/
 __pycache__/
@@ -18,4 +19,8 @@ htmlcov/
 .env
 .DS_Store
 Thumbs.db
-digests/
+# Runtime uploads and build outputs — never part of the image.
+data/uploads/
+report/
+slides/
+artefacts/
