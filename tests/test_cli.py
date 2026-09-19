@@ -108,7 +108,7 @@ class TestCmdAnalyzeAIResults:
 
         out = capsys.readouterr()
         assert code == 1
-        assert "could not be priced" in out.out
+        assert "No ingredients could be priced" in out.out
         assert "Skipping" in out.err
 
 

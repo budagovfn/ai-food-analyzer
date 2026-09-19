@@ -50,6 +50,10 @@ def client(monkeypatch):
     upload_dir = Path(settings.image_upload_dir)
     if upload_dir.exists():
         shutil.rmtree(upload_dir, ignore_errors=True)
+    # src/api.py creates UPLOAD_DIR once, at import time. If the teardown
+    # leaves it deleted, every later test in this file fails with
+    # FileNotFoundError when it tries to save an upload, so put it back.
+    upload_dir.mkdir(parents=True, exist_ok=True)
 
 
 def _jpg_file(name="meal.jpg", content=b"\xff\xd8\xff fake-jpeg-bytes"):
