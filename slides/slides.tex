@@ -278,9 +278,9 @@ $ docker compose run --rm api python -m foodanalyzer analyze data/rice_chicken_b
   \column{0.55\textwidth}
   \textbf{Coverage \& shape}
   \begin{itemize}\setlength\itemsep{0.3em}
-    \item Total coverage \textbf{64\,\%}; \textbf{102} tests, all offline
-    \item \texttt{api.py} 90\,\%, \texttt{cli.py} 84\,\%, \texttt{ai\_service.py} 97\,\%; \texttt{nutrition}, \texttt{pipeline}, \texttt{config}, \texttt{models} 100\,\%
-    \item The uncovered remainder is the provided \texttt{ai/providers/} adapters
+    \item \textbf{93\,\%} on \texttt{src/}, \textbf{64\,\%} with \texttt{ai/}; \textbf{102} tests, offline
+    \item \texttt{api.py} 90\,\%, \texttt{cli.py} 84\,\%, \texttt{ai\_service.py} 97\,\%; the rest of \texttt{src/} 100\,\%
+    \item Uncovered remainder: the provided \texttt{ai/providers/} adapters
     \item Provided \texttt{test\_ai\_smoke.py} untouched, 29 passing
   \end{itemize}
 
@@ -290,13 +290,13 @@ $ docker compose run --rm api python -m foodanalyzer analyze data/rice_chicken_b
     \item Happy path: all ingredients priced
     \item Concurrency: one lookup fails, batch survives
     \item Retry-exhausted $\to$ \texttt{AIServiceError}, never a raw timeout
-    \item Unit audit: the 1975\,kcal payload from Slide 6, pinned wrong before the fix, consistent after
+    \item Unit audit: the 1975\,kcal payload, wrong before the fix, consistent after
   \end{itemize}
   \end{columns}
 
-  \vspace{0.6em}
+  \vspace{0.3em}
   \begin{block}{Honesty note}
-    Our concurrency \emph{timing} test is broken: an autouse fixture disables \texttt{time.sleep} globally, so it can't tell parallel from sequential. The \emph{behavioural} guarantee (one failure doesn't break the batch) is still correctly tested.
+    \small Our timing test used to be vacuous --- an autouse fixture disabled \texttt{time.sleep} globally, killing the delay it measures. Now fixed, and verified by sabotage: sequential code fails in 2.5\,s where it used to pass in 0.07\,s.
   \end{block}
 \end{frame}
 
@@ -312,7 +312,6 @@ $ docker compose run --rm api python -m foodanalyzer analyze data/rice_chicken_b
   \vspace{0.4em}
   \textbf{Given another week we would}
   \begin{enumerate}\setlength\itemsep{0.3em}
-    \item Fix the broken concurrency-timing test (Slide 8).
     \item Write a contract test for the USDA adapter: one recorded payload, replayed offline. It would have caught the kilojoule defect on day one.
     \item Run a real load test against the Docker image, then add a second VLM/nutrition provider for failover.
   \end{enumerate}
