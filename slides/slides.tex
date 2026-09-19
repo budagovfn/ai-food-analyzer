@@ -324,12 +324,12 @@ $ docker compose run --rm api python -m foodanalyzer analyze data/rice_chicken_b
     \toprule
     \textbf{Member} & \textbf{Primary ownership} & \textbf{Commits} \\
     \midrule
-    \memberone   & Config and storage layers, HTTP API fixes, Docker hardening, unit-audit provider, git/PR workflow, report \& slides & 19/31 ($\sim$61\%) \\
-    \membertwo   & AI-service wrapper (retry/timeout/cache), concurrency pipeline, FastAPI endpoint, Dockerfile \& compose & 8/31 ($\sim$26\%) \\
-    \memberthree & API and CLI test suites, \texttt{README}, pull-request review and merges & 4/31 ($\sim$13\%) \\
+    \memberone   & Config and storage layers, HTTP API fixes, Docker hardening, unit-audit provider, git/PR workflow, report \& slides & 33/47 \textit{(17/29)} \\
+    \membertwo   & AI-service wrapper (retry/timeout/cache), concurrency pipeline, FastAPI endpoint, Dockerfile \& compose & 9/47 \textit{(9/29)} \\
+    \memberthree & API and CLI test suites, \texttt{README}, pull-request review and merges & 5/47 \textit{(3/29)} \\
     \bottomrule
   \end{tabularx}\\[0.3em]
-  {\scriptsize Counts from \texttt{git shortlog -sn} with the repository's \texttt{.mailmap}, which collapses the several git identities we each committed under.}
+  {\scriptsize From \texttt{git shortlog -sn} with the repository's \texttt{.mailmap}, which collapses the several git identities we each committed under. In italics: excluding merge commits --- 16 of the 18 merges on \texttt{main} are Farhad's, from running the PR workflow, and count towards a total without being authored code.}
   \end{center}
 
   \vspace{0.2em}

@@ -14,13 +14,15 @@ All three of us have committed under more than one git identity, and merges made
 
 The repository contains a `.mailmap` that collapses these identities. All percentages below come from `git shortlog -sn origin/main` **with** that file applied, and reproduce exactly:
 
-| Member | Commits | Share |
-|---|---|---|
-| Farhad Budagov | 19 / 31 | ~61% |
-| Mikayil Hasanov | 8 / 31 | ~26% |
-| Nihad Gojayev | 4 / 31 | ~13% |
+| Member | All commits | Share | Authored only | Share |
+|---|---|---|---|---|
+| Farhad Budagov | 33 / 47 | 70% | 17 / 29 | 59% |
+| Mikayil Hasanov | 9 / 47 | 19% | 9 / 29 | 31% |
+| Nihad Gojayev | 5 / 47 | 11% | 3 / 29 | 10% |
 
-Every member is above the 10% floor. The distribution is uneven and we state that plainly rather than round it away: Nihad joined the codebase later than the other two, and his contribution is concentrated in the test suite for the two entry points, which was the largest single gap in the project at the time he picked it up.
+We give two figures because they differ, and the difference is itself informative. Of the 18 merge commits on `main`, 16 were made by Farhad, who handled the pull-request workflow for the team; merge commits count towards a commit total without representing authored code. The second pair of columns (`git shortlog -sn --no-merges`) strips them out and is the better measure of who wrote what: on that basis Mikayil's share is 31%, not 19%.
+
+Every member is above the 10% floor on both measures, though Nihad is close to it. The distribution is uneven and we state that plainly rather than round it away: Nihad joined the codebase later than the other two, and his contribution is concentrated in the test suite for the two entry points, which was the largest single gap in the project at the time he picked it up.
 
 ---
 
@@ -45,7 +47,7 @@ Every member is above the 10% floor. The distribution is uneven and we state tha
 **Reviewed (PRs reviewed and merged):**
 - PRs #1–#8
 
-**Share of commits:** ~61% (19 of 31)
+**Share of commits:** 70% of all commits (33 of 47), 59% excluding merges (17 of 29)
 
 ---
 
@@ -66,7 +68,7 @@ Every member is above the 10% floor. The distribution is uneven and we state tha
 **Reviewed:**
 - PR #3 (`mickael044-patch-1`, `models.py`)
 
-**Share of commits:** ~26% (8 of 31)
+**Share of commits:** 19% of all commits (9 of 47), 31% excluding merges (9 of 29)
 
 ---
 
@@ -85,7 +87,7 @@ Together these lifted `src/api.py` from 0% to 90% coverage and `src/cli.py` from
 **Reviewed (PRs reviewed and merged):**
 - PR #9 (Docker hardening), PR #10 (test-suite integration)
 
-**Share of commits:** ~13% (4 of 31)
+**Share of commits:** 11% of all commits (5 of 47), 10% excluding merges (3 of 29)
 
 ---
 
