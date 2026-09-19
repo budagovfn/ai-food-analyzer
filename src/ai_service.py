@@ -36,6 +36,7 @@ import ai
 from ai.providers.base import ProviderError
 from ai.schemas import Ingredient, NutritionFacts
 from src.config import settings
+from src.nutrition import get_nutrition_provider
 
 logger = logging.getLogger("foodanalyzer")
 logger.setLevel(settings.log_level)
@@ -115,7 +116,12 @@ class NutritionService:
     """
 
     def __init__(self, provider: "ai.NutritionProvider | None" = None) -> None:
-        self._provider = provider or ai.get_nutrition_provider()
+        # Defaults to the unit-checked provider from src/nutrition.py rather
+        # than ai.get_nutrition_provider() directly: the provided USDA
+        # adapter reports energy in kilojoules under a kcal field, and every
+        # lookup in the application has to be audited for that. See
+        # src/nutrition.py for the analysis.
+        self._provider = provider or get_nutrition_provider()
         self._cache: dict[str, tuple[float, NutritionFacts]] = {}
         self._cache_lock = Lock()
         self._ttl_seconds = settings.nutrition_cache_ttl_seconds
