@@ -1,0 +1,9 @@
+# Canonical identities for the three team members.
+# Several of us committed under more than one git name (and, for merges made
+# through the GitHub web UI, under a noreply address), which made
+# `git shortlog -sne` list six authors for a team of three. This file
+# collapses them so commit-share numbers are read correctly.
+Farhad Budagov <nl.farhy@gmail.com>
+Mikayil Hasanov <mikayilhesenov2007@gmail.com>
+Nihad Gojayev <nihadqocayev152@gmail.com>
+Nihad Gojayev <nihadqocayev152@gmail.com> <163444756+justpr09rammer@users.noreply.github.com>

@@ -1,0 +1,14 @@
+# Normalise line endings. Part of the team develops on Windows, so without
+# this every checkout there rewrites files to CRLF and `git status` reports
+# the whole tree as modified even when nothing changed.
+#
+# Only the conversion is normalised: no file is renormalised retroactively,
+# so the committed blobs (including the provided ai/ package, which we must
+# not modify) are untouched.
+* text=auto eol=lf
+
+# Never touch these.
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
