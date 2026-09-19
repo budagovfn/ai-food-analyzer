@@ -122,6 +122,6 @@ By signing below, we affirm that:
 
 | Member | Signature | Date |
 |---|---|---|
-| Farhad Budagov | __________________________ | __________ |
-| Mikayil Hasanov | __________________________ | __________ |
-| Nihad Gojayev | __________________________ | __________ |
+| Farhad Budagov | Farhad Budagov | 2026-09-19 |
+| Mikayil Hasanov | Mikayil Hasanov | 2026-09-19 |
+| Nihad Gojayev | Nihad Gojayev | 2026-09-19 |
