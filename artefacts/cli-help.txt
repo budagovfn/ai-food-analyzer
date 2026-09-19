@@ -1,0 +1,31 @@
+$ python -m foodanalyzer --help
+
+usage: foodanalyzer [-h] {analyze,history} ...
+
+Command-line interface for the Food Analyzer. Usage ----- python -m
+foodanalyzer analyze data/sample_meal.jpg python -m foodanalyzer analyze
+data/sample_meal.jpg --no-save python -m foodanalyzer history --limit 5 This
+ties together every SE-layer piece written so far into one runnable command,
+as required by the Day 3-5 "Skeleton" milestone: config -> AI service wrapper
+-> storage, working end-to-end against the real ai/ package (or fails with a
+clear message, never a raw stack trace, per the brief's robustness
+requirements in §4.5).
+
+positional arguments:
+  {analyze,history}
+    analyze          Analyze one meal photo
+    history          List recent saved analyses
+
+options:
+  -h, --help         show this help message and exit
+
+$ python -m foodanalyzer analyze --help
+
+usage: foodanalyzer analyze [-h] [--no-save] image
+
+positional arguments:
+  image       Path to a meal image (.png/.jpg/.jpeg)
+
+options:
+  -h, --help  show this help message and exit
+  --no-save   Skip writing the result to the database

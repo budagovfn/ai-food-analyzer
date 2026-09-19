@@ -1,0 +1,10 @@
+$ python demo_ai.py --offline
+
+Analyzing: bread_cheese.png  (mode=offline)
+
+ingredient      g   kcal  protein  carbs  fat 
+----------------------------------------------
+cheddar cheese  30  121   7.5      0.4    9.9 
+white bread     60  159   5.4      29.4   1.9 
+----------------------------------------------
+TOTAL           90  280   12.9     29.8   11.8

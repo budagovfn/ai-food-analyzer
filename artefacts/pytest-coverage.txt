@@ -1,0 +1,37 @@
+$ pytest -q --cov=src --cov=ai --cov-report=term
+
+........................................................................ [ 70%]
+..............................                                           [100%]
+=============================== warnings summary ===============================
+../../../tmp/venv-check/lib/python3.12/site-packages/starlette/testclient.py:53
+  /tmp/venv-check/lib/python3.12/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.3-final-0 ________________
+Name                        Stmts   Miss  Cover
+-----------------------------------------------
+ai/__init__.py                  5      0   100%
+ai/calculator.py               10      0   100%
+ai/nutrition.py                51     35    31%
+ai/providers/__init__.py        0      0   100%
+ai/providers/anthropic.py      56     56     0%
+ai/providers/base.py           20      4    80%
+ai/providers/factory.py        36     30    17%
+ai/providers/google.py         63     63     0%
+ai/providers/openai.py         85     85     0%
+ai/schemas.py                  36      0   100%
+ai/vlm.py                      38      0   100%
+src/__init__.py                 0      0   100%
+src/ai_service.py              76      2    97%
+src/api.py                     87      9    90%
+src/cli.py                    104     17    84%
+src/config.py                  20      0   100%
+src/models.py                  17      0   100%
+src/nutrition.py               38      0   100%
+src/pipeline.py                26      0   100%
+src/storage/__init__.py         2      0   100%
+src/storage/repository.py      76      1    99%
+-----------------------------------------------
+TOTAL                         846    302    64%
+102 passed, 1 warning in 1.78s
