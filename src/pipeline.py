@@ -19,7 +19,7 @@ logger = logging.getLogger("foodanalyzer")
 
 # USDA's free tier has limits — a burst of many simultaneous requests can
 # still trigger throttling. Bound how many lookups run at once.
-MAX_PARALLEL_LOOKUPS = 10
+MAX_PARALLEL_LOOKUPS = 10 #looooooooooooooooooooooooooooook 
 
 
 async def lookup_all(
@@ -36,7 +36,7 @@ async def lookup_all(
     service = nutrition_service or NutritionService()
     semaphore = asyncio.Semaphore(MAX_PARALLEL_LOOKUPS)
 
-    async def _lookup_one(ing: Ingredient):
+    async def _lookup_one(ing: Ingredient): #looooooooooooooooooooooooook  dayanmadan islemeye komet edir
         async with semaphore:
             try:
                 # NutritionService.lookup is a synchronous (blocking) call,
@@ -48,7 +48,7 @@ async def lookup_all(
                 logger.warning("lookup failed: %s -> %s", ing.name, e)
                 return ing, None, str(e)
 
-    results = await asyncio.gather(*(_lookup_one(ing) for ing in ingredients))
+    results = await asyncio.gather(*(_lookup_one(ing) for ing in ingredients))     #loooooooook butun ingredientleri ie salir
 
     facts_by_name: dict[str, NutritionFacts] = {}
     failures: list[tuple[Ingredient, str]] = []
