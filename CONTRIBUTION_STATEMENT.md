@@ -4,7 +4,7 @@
 **Topic:** Topic 2 — AI Food Analyzer
 **Repository:** [https://github.com/budagovfn/ai-food-analyzer](https://github.com/budagovfn/ai-food-analyzer)
 **Final tag:** `v1.0-final`
-**Submission date:** _[YYYY-MM-DD]_
+**Submission date:** 2026-09-19
 
 ---
 
